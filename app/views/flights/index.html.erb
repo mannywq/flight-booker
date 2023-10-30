@@ -1,0 +1,35 @@
+<h1 class="text-white text-center text-7xl z-11">Explore everywhere</h1>
+<div class="bg-black/80 rounded-lg p-8">
+  <h3 class="text-white text-2xl mt-0">Search flights</h3>
+  <%= form_with model: @flights, method: :get, class: 'grid grid-cols-4 gap-4 z-11' do |f| %>
+
+    <div class="departure flex flex-col">
+      <%= f.label :departure_airport, "From:", class: "text-white font-bold mb-2" %>
+      <%= f.select :departure_airport,
+               @airports.map { |a| [a.name, a.code] },
+               {},
+               class: "w-full px-4 py-2 rounded-lg" %>
+    </div>
+    <div class="departure flex flex-col">
+      <%= f.label :arrival_airport, "To:", class: "text-white font-bold mb-2" %>
+      <%= f.select :arrival_airport,
+               @airports.map { |a| [a.name, a.code] },
+               {},
+               class: "w-full px-4 py-2 rounded-lg" %>
+    </div>
+    <div class="flight-date flex flex-col">
+      <%= f.label :flight_date, "Departure date:" %>
+      <%=  %>
+
+    </div>
+
+    <div class="num_pax flex flex-col">
+      <%= f.label :num_pax, "Number of passengers:", class: "text-white font-bold mb-2" %>
+      <%= f.number_field :num_pax, class: "w-full px-4 py-2 rounded-lg" %>
+    </div>
+    <%= f.submit "Find flights",
+             class:
+               "self-end btn-primary h-[44px] bg-blue-500 hover:bg-blue-600 rounded-md p-2 text-white font-bold" %>
+
+  <% end %>
+</div>
