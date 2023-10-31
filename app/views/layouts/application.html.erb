@@ -11,23 +11,16 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body
-    class="
-      bg-black
-      bg-[url('sunset.jpg')]
-      bg-cover
-      bg-blend-screen
-      prose
-      min-w-full
-      h-screen
-      grid
-      place-items-center
-      relative
-    "
-  >
-    <main class="container mx-auto mt-0 px-5 z-11">
-      <%= yield %>
-    </main>
+  <body class=" prose min-w-full h-screen ">
+    <div class=" img-container relative w-screen max-h-screen overflow-hidden">
+      <%= image_tag "sunset.jpg", class: "m-0 object-cover h-full" %>
+      <div class=" absolute inset-0 bg-black/50 grid place-items-center">
+        <main class="container mx-auto mt-0 px-5 z-11">
+          <%= yield %>
+        </main>
+
+      </div>
+    </div>
 
   </body>
 </html>
