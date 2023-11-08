@@ -29,7 +29,9 @@ flights = [
   { flight_no: 'QF62', departure_airport: Airport.find(2),
     arrival_airport: Airport.find(4), duration: 410, departure_time: Time.now },
   { flight_no: 'NH1076', departure_airport: Airport.find(1),
-    arrival_airport: Airport.find(2), duration: 410, departure_time: Time.now }
+    arrival_airport: Airport.find(2), duration: 90, departure_time: Time.now },
+  { flight_no: 'NH1077', departure_airport: Airport.find(1),
+    arrival_airport: Airport.find(2), duration: 90, departure_time: Time.now + 3.hours }
 
 ]
 Flight.create(flights)

@@ -1,0 +1,34 @@
+<div id="<%= dom_id booking %>">
+  <h1>Booking information</h1>
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Flight:</strong>
+    <%= booking.flight.departure_airport.name %>
+    to
+    <%= booking.flight.arrival_airport.name %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Departure:</strong>
+    <%= booking.flight.departure_time.strftime("%d %b %Y %H:%M %Z(%z)") %>
+  </p>
+
+  <p class="my-5">
+    <h3>Passenger details</h3>
+    <% booking.passengers.each do |passenger| %>
+
+      <p><strong>Name:</strong><%= passenger.name %></p>
+      <p><strong>Email:</strong><%= passenger.email %></p>
+
+    <% end %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this booking",
+    booking,
+    class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Edit this booking",
+    edit_booking_path(booking),
+    class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>

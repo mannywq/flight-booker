@@ -1,6 +1,8 @@
 class Flight < ApplicationRecord
   belongs_to :departure_airport, class_name: 'Airport'
   belongs_to :arrival_airport, class_name: 'Airport'
+  has_many :bookings, dependent: :destroy
+  has_many :passengers, through: :bookings
 
   def self.search(params)
     return nil unless params[:flight].present?
@@ -14,8 +16,7 @@ class Flight < ApplicationRecord
 
       query = query.joins(:departure_airport,
                           :arrival_airport)
-                   .where(airports: { code: params[:departure_airport] })
-                   .where(arrival_airport: { code: params[:arrival_airport] })
+                   .where(airports: { code: params[:departure_airport] }, arrival_airport: { code: params[:arrival_airport] })
 
     end
 

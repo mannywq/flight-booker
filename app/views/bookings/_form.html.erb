@@ -1,0 +1,43 @@
+<%= form_with(model: booking, class: "contents") do |form| %>
+  <% if booking.errors.any? %>
+    <div
+      id="error_explanation"
+      class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3"
+    >
+      <h2><%= pluralize(booking.errors.count, "error") %>
+        prohibited this booking from being saved:</h2>
+
+      <ul>
+        <% booking.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="my-5">
+
+    <%= form.hidden_field :flight_id,
+                      value: params[:flight_id].presence || booking.flight_id %>
+    <%= form.hidden_field :departure %>
+    <%= form.hidden_field :seats, value: params[:num_pax] %>
+  </div>
+  <div class="my-5 flex flex-col">
+    <% passenger_number = 1 %>
+    <%= form.fields_for :passengers do |f| %>
+      <h3>Passenger
+        <%= passenger_number %></h3>
+      <%= f.label :name, "Your name", class: "mb-2 font-medium" %>
+      <%= f.text_field :name, class: "mb-4" %>
+      <%= f.label :email, "Your email", class: "mb-2 font-medium" %>
+      <%= f.text_field :email, class: "mb-4" %>
+      <% passenger_number += 1 %>
+
+    <% end %>
+  </div>
+
+  <div class="inline">
+    <%= form.submit class:
+                  "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+  </div>
+<% end %>

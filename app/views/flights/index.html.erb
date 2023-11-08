@@ -4,21 +4,21 @@
   <%= form_with model: @flights, method: :get, url: '/flights', class: 'grid grid-cols-5 gap-4 z-11' do |f| %>
 
     <div class="departure flex flex-col">
-      <%= f.label :departure_airport, "From:", class: "text-white font-bold mb-2" %>
+      <%= f.label :departure_airport, "From:", class: "font-bold mb-2" %>
       <%= f.select :departure_airport,
                @airports.map { |a| [a.name, a.code] },
                {},
                class: "w-full px-4 py-2 rounded-lg" %>
     </div>
     <div class="departure flex flex-col">
-      <%= f.label :arrival_airport, "To:", class: "text-white font-bold mb-2" %>
+      <%= f.label :arrival_airport, "To:", class: "font-bold mb-2" %>
       <%= f.select :arrival_airport,
                @airports.map { |a| [a.name, a.code] },
                { class: "bg-white" },
                class: "w-full px-4 py-2 rounded-lg" %>
     </div>
     <div class="flight-date flex flex-col">
-      <%= f.label :flight_date, "Departure date:", class: "text-white font-bold mb-2" %>
+      <%= f.label :flight_date, "Departure date:", class: "font-bold mb-2" %>
       <%= f.select "flight_date",
                options_from_collection_for_select(
                  @flights,
@@ -30,7 +30,7 @@
     </div>
 
     <div class="num_pax flex flex-col">
-      <%= f.label :num_pax, "Number of passengers:", class: "text-white font-bold mb-2" %>
+      <%= f.label :num_pax, "Num passengers:", class: "font-bold mb-2" %>
       <%= f.select :num_pax, (1..4).to_a, class: "w-full px-4 py-2 rounded-lg" %>
     </div>
     <div class="cta flex">
@@ -42,13 +42,28 @@
   <% end %>
 </div>
 <% if @results.present? %>
-  <div class="bg-white w-screen -mt-[80px] rounded-lg p-16 -z-0 relative">
-    <h3>Search results</h3>
-    <% @results.each do |result| %>
+  <%= form_with url: '/bookings/new', action: 'new', method: :get do |form| %>
+    <div class="bg-white w-screen -mt-[80px] rounded-lg p-16 -z-0 relative">
+      <h3>Search results</h3>
+      <% @results.each do |result| %>
+        <div class="flex">
+        <div class="flex items-center">
+        <%= form.radio_button :flight_id, result.id, class: 'self-center' %>
+        </div>
+        <div class="info px-4">
+        <p><strong>Flight no: </strong><%= result.flight_no %></p>
 
-      <p><%= result.flight_no %></p>
+        <p><strong>From: </strong><%= result.departure_airport.name %></p>
+        <p><strong>To: </strong><%= result.arrival_airport.name %></p>
+        <p><strong>Departure time: </strong><%= result.departure_time.strftime('%Y-%m-%d %H:%M %Z(%z)') %></p>
+        <p><strong>Duration: </strong><%= result.duration %> minutes</p>
+        </div>
+      <% end %>
+        </div>
+      <%= form.hidden_field :num_pax, value: params[:flight][:num_pax] %>
+      <%= form.submit 'Book flight', class:
+                 "self-end cursor-pointer btn-primary h-[44px] bg-blue-500 hover:bg-blue-600 rounded-md p-2 text-white font-bold" %>
+      <% end %>
+    </div>
 
-    <% end %>
-  </div>
-
-<% end %>
+  <% end %>

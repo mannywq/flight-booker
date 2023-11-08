@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  flight: one
+  departure: 2023-11-07 16:45:09
+  seats: 1
+
+two:
+  flight: two
+  departure: 2023-11-07 16:45:09
+  seats: 1
