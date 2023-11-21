@@ -1,0 +1,14 @@
+<h1>Booking confirmed</h1>
+Hi
+<%= @user.name %>
+, your booking has now been processed.
+<h3>Details</h3>
+Flight no:
+<%= @booking.flight.flight_no %>
+Departure:
+<%= @booking.flight.departure_airport.name %>
+Arrival:
+<%= @booking.flight.arrival_airport.name %>
+Departure time:
+<%= @booking.flight.departure_time %>
+Enjoy your flight!

@@ -25,6 +25,11 @@ class BookingsController < ApplicationController
 
     respond_to do |format|
       if @booking.save
+
+        @booking.passengers.each do |passenger|
+          PassengerMailer.booking_confirmation_email(passenger,
+                                                     @booking).deliver_now
+        end
         format.html do
           redirect_to booking_url(@booking),
                       notice: 'Booking was successfully created.'
